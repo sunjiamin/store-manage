@@ -76,10 +76,10 @@ public class XbootGenerator {
     public static void main(String[] args) throws IOException {
 
         //模板路径
-        String root = System.getProperty("user.dir")+"/src/main/java/com/sun/storemanager/generator/template";
-        FileResourceLoader resourceLoader = new FileResourceLoader(root,"utf-8");
-        Configuration cfg = Configuration.defaultConfiguration();
-        GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
+//        String root = System.getProperty("user.dir")+"/src/main/java/com/sun/storemanager/generator/template";
+//        FileResourceLoader resourceLoader = new FileResourceLoader(root,"utf-8");
+//        Configuration cfg = Configuration.defaultConfiguration();
+//        GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
 
         //生成代码
        // generateCode(gt);
