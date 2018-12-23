@@ -22,4 +22,6 @@ public interface ProductService extends BaseService<Product,String> {
      * @return
      */
     Page<Product> findByCondition(Product product, SearchVo searchVo, Pageable initPage);
+
+    Product findById(String id);
 }

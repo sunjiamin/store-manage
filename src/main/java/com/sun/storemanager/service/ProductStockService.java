@@ -2,6 +2,7 @@ package com.sun.storemanager.service;
 
 import com.sun.storemanager.base.BaseService;
 import com.sun.storemanager.common.vo.SearchVo;
+import com.sun.storemanager.entity.Product;
 import com.sun.storemanager.entity.ProductStock;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,5 +16,5 @@ import java.util.List;
 public interface ProductStockService extends BaseService<ProductStock,String> {
 
 
-    Page<ProductStock> findByCondition(ProductStock productStock, SearchVo searchVo, Pageable initPage);
+    Page<ProductStock> findByCondition(ProductStock productStock,List<Product> productList, SearchVo searchVo, Pageable initPage);
 }

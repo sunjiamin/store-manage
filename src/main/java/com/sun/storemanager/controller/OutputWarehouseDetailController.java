@@ -1,7 +1,7 @@
 package com.sun.storemanager.controller;
 
+import com.baomidou.mybatisplus.plugins.Page;
 import com.sun.storemanager.base.BaseController;
-import com.sun.storemanager.common.utils.PageUtil;
 import com.sun.storemanager.common.utils.ResultUtil;
 import com.sun.storemanager.common.vo.PageVo;
 import com.sun.storemanager.common.vo.Result;
@@ -12,8 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -40,14 +38,15 @@ public class OutputWarehouseDetailController extends BaseController<OutputWareho
 
 
     @RequestMapping(value = "/getByCondition",method = RequestMethod.GET)
-    @ApiOperation(value = "多条件分页获取用户列表")
+    @ApiOperation(value = "多条件分页获取出库记录")
     public Result<Page<OutputWarehouseDetail>> getByCondition(@ModelAttribute OutputWarehouseDetail outputWarehouseDetail,
                                                              @ModelAttribute SearchVo searchVo,
                                                              @ModelAttribute PageVo pageVo){
 
-        Page<OutputWarehouseDetail> page = outputWarehouseDetailService.findByCondition(outputWarehouseDetail, searchVo, PageUtil.initPage(pageVo));
+        Page<OutputWarehouseDetail> page = outputWarehouseDetailService.findByPage(outputWarehouseDetail, searchVo, pageVo);
 
         return new ResultUtil<Page<OutputWarehouseDetail>>().setData(page);
+
     }
 
     @RequestMapping(value = "/edit",method = RequestMethod.POST)

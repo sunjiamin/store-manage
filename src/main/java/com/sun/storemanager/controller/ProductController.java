@@ -8,10 +8,7 @@ import com.sun.storemanager.common.utils.ResultUtil;
 import com.sun.storemanager.common.vo.PageVo;
 import com.sun.storemanager.common.vo.Result;
 import com.sun.storemanager.common.vo.SearchVo;
-import com.sun.storemanager.entity.Permission;
-import com.sun.storemanager.entity.Product;
-import com.sun.storemanager.entity.Role;
-import com.sun.storemanager.entity.User;
+import com.sun.storemanager.entity.*;
 import com.sun.storemanager.service.ProductClassService;
 import com.sun.storemanager.service.ProductService;
 import com.sun.storemanager.service.UserService;
@@ -64,6 +61,17 @@ public class ProductController extends BaseController<Product, String>{
 
         Page<Product> page = productService.findByCondition(product, searchVo, PageUtil.initPage(pageVo));
 
+        page.map(entity ->{
+            ProductClass productClass = entity.getProductClass();
+            if(null!=productClass){
+                entity.setProductClassName(productClass.getClassName());
+            }
+            Supplier supplier = entity.getSupplier();
+            if(null!=supplier ){
+                entity.setSupplierName(supplier.getName());
+            }
+            return entity;
+        });
         return new ResultUtil<Page<Product>>().setData(page);
     }
 

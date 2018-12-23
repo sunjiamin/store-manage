@@ -2,7 +2,10 @@ package com.sun.storemanager.serviceimpl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.sun.storemanager.common.utils.StringUtil;
+import com.sun.storemanager.common.vo.Constants;
 import com.sun.storemanager.common.vo.SearchVo;
+import com.sun.storemanager.dao.ProductDao;
 import com.sun.storemanager.dao.ProductStockDao;
 import com.sun.storemanager.entity.Product;
 import com.sun.storemanager.entity.ProductStock;
@@ -34,27 +37,41 @@ public class ProductStockServiceImpl implements ProductStockService {
     @Autowired
     private ProductStockDao productStockDao;
 
+
+
+
     @Override
     public ProductStockDao getRepository() {
         return productStockDao;
     }
 
     @Override
-    public Page<ProductStock> findByCondition(ProductStock productStock, SearchVo searchVo, Pageable initPage) {
+    public Page<ProductStock> findByCondition(ProductStock productStock,List<Product> productList, SearchVo searchVo, Pageable initPage) {
+
         return productStockDao.findAll(new Specification<ProductStock>() {
             @Nullable
             @Override
             public Predicate toPredicate(Root<ProductStock> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
-
-                Path<String> productName = root.get("productName");
                 Path<Date> createTimeField=root.get("createTime");
-
                 List<Predicate> list = new ArrayList<Predicate>();
 
-                //模糊搜素
-                if(StrUtil.isNotBlank(productStock.getProductName())){
-                    list.add(cb.like(productName,'%'+productStock.getProductName()+'%'));
+                Path<Integer> productStocField=root.get("productStock");
+
+                if(productList != null && productList.size()>0){
+                    CriteriaBuilder.In<Object> in = cb.in(root.get("productId"));
+                    for (Product product : productList) {
+                        in.value(product.getId());
+                    }
+                    list.add(in);
                 }
+
+                String stockStart = productStock.getStockStart();
+                String stockEnd = productStock.getStockEnd();
+                if(StrUtil.isNotBlank(stockStart) && StrUtil.isNotBlank(stockEnd)){
+                    list.add(cb.between(productStocField, Integer.valueOf(stockStart), Integer.valueOf(stockEnd)));
+                }
+
+
 
                 //创建时间
                 if(StrUtil.isNotBlank(searchVo.getStartDate())&&StrUtil.isNotBlank(searchVo.getEndDate())){

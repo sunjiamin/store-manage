@@ -21,7 +21,7 @@ public class IpInfoUtil {
     /**
      * 你的APPKEY mob官网注册申请即可
      */
-    private final static String APPKEY = "你的AppKey";
+    private final static String APPKEY = "2862a1da4cafc";
 
     /**
      * Mob IP查询接口
@@ -31,7 +31,9 @@ public class IpInfoUtil {
     /**
      * Mob IP天气查询接口
      */
-    private final static String GET_IP_WEATHER = "http://apicloud.mob.com/v1/weather/ip?key="+ APPKEY +"&ip=";
+
+    private final static String GET_IP_WEATHER = "http://apicloud.mob.com/v1/weather/query?key="+APPKEY+"&city=高安";
+    //private final static String GET_IP_WEATHER = "http://apicloud.mob.com/v1/weather/ip?key="+ APPKEY +"&ip=";
 
     /**
      * 获取客户端IP地址
@@ -80,7 +82,8 @@ public class IpInfoUtil {
     public static String getIpWeatherInfo(String ip){
 
         if(StrUtil.isNotBlank(ip)){
-            String url = GET_IP_WEATHER + ip;
+            //String url = GET_IP_WEATHER + ip;
+            String url ="http://apicloud.mob.com/v1/weather/query?city=南昌&key=2862a1da4cafc"; //GET_IP_WEATHER ;
             String result= HttpUtil.get(url);
             return result;
         }

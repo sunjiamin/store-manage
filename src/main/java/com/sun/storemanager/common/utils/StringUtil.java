@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
  * 
  * @author Infosys
  */
-public final class StringUtil extends StringUtils {
+public  class StringUtil  {
 
 	/**
 	 * Creates a new instance of StringUtil. This Constructor can't be invoked

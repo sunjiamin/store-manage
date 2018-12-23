@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService {
                 Path<String> productCode = root.get("productCode");
                 Path<String> productSpec = root.get("productSpec");
                 Path<Integer> productClass=root.get("productClass");
-                Path<Integer> supplierId=root.get("supplierId");
+                //Path<Integer> supplierId=root.get("supplierId");
                 Path<Integer> brandId=root.get("brandId");
                 Path<Date> createTimeField=root.get("createTime");
 
@@ -70,9 +70,9 @@ public class ProductServiceImpl implements ProductService {
 //                    list.add(cb.equal(productClass, product.getProductClass()));
 //                }
                 //类型
-                if(StrUtil.isNotBlank(product.getSupplierId())){
-                    list.add(cb.equal(supplierId, product.getSupplierId()));
-                }
+//                if(StrUtil.isNotBlank(product.getSupplierId())){
+//                    list.add(cb.equal(supplierId, product.getSupplierId()));
+//                }
                 //状态
                 if(StrUtil.isNotBlank(product.getBrandId())){
                     list.add(cb.equal(brandId, product.getBrandId()));
@@ -89,5 +89,10 @@ public class ProductServiceImpl implements ProductService {
                 return null;
             }
         }, initPage);
+    }
+
+    @Override
+    public Product findById(String id) {
+        return  productDao.findById(id).get();
     }
 }

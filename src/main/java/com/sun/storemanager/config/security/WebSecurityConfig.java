@@ -58,10 +58,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS)
-                .permitAll()
+                //.antMatchers(HttpMethod.OPTIONS)
+                //.permitAll()
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
-               //就是这一行啦  ;
+//               //就是这一行啦  ;
+//        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry = http
+//                .authorizeRequests();
 
         //除配置文件忽略路径其它所有请求都需经过认证和授权
         for(String url:ignoredUrlsProperties.getUrls()){

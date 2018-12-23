@@ -24,13 +24,13 @@ public class XbootGenerator {
      * 实体类名
      * 建议仅需修改
      */
-    private static final String className = "Customer";
+    private static final String className = "Supplier";
 
     /**
      * 类说明描述
      * 建议仅需修改
      */
-    private static final String description = "客户";
+    private static final String description = "供应商";
 
     /**
      * 作者名
@@ -76,13 +76,13 @@ public class XbootGenerator {
     public static void main(String[] args) throws IOException {
 
         //模板路径
-//        String root = System.getProperty("user.dir")+"/src/main/java/com/sun/storemanager/generator/template";
-//        FileResourceLoader resourceLoader = new FileResourceLoader(root,"utf-8");
-//        Configuration cfg = Configuration.defaultConfiguration();
-//        GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
+        String root = System.getProperty("user.dir")+"/src/main/java/com/sun/storemanager/generator/template";
+        FileResourceLoader resourceLoader = new FileResourceLoader(root,"utf-8");
+        Configuration cfg = Configuration.defaultConfiguration();
+        GroupTemplate gt = new GroupTemplate(resourceLoader, cfg);
 
-        //生成代码
-       // generateCode(gt);
+       // 生成代码
+        generateCode(gt);
 
         //根据类名删除生成的代码
        // deleteCode(className);

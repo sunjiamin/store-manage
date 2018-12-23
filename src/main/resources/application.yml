@@ -119,3 +119,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+
+# 日志
+logging:
+  file: xboot-logs/xboot.log

@@ -32,7 +32,9 @@ public class RestCtrlExceptionHandler {
         String errorMsg="Exception";
         if (e!=null){
             errorMsg=e.getMessage();
+
             log.warn(e.toString());
+            e.printStackTrace();
         }
         return new ResultUtil<>().setErrorMsg(500, errorMsg);
     }

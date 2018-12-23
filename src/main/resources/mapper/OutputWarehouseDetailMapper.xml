@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sun.storemanager.dao.mapper.OutputWarehouseDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.sun.storemanager.entity.OutputWarehouseDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="output_warehouse_id" property="outputWarehouseId" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="INTEGER" />
+    <result column="unit" property="unit" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="cost_price" property="costPrice" jdbcType="DECIMAL" />
+    <result column="amount" property="amount" jdbcType="DECIMAL" />
+    <result column="pay_status" property="payStatus" jdbcType="VARCHAR" />
+    <result column="surcharge" property="surcharge" jdbcType="DECIMAL" />
+    <result column="total_amount" property="totalAmount" jdbcType="DECIMAL" />
+    <result column="nopay_amount" property="nopayAmount" jdbcType="DECIMAL" />
+    <result column="profit" property="profit" jdbcType="DECIMAL" />
+    <result column="sale_person_id" property="salePersonId" jdbcType="VARCHAR" />
+    <result column="customer_id" property="customerId" jdbcType="VARCHAR" />
+    <result column="warehouse_id" property="warehouseId" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="del_flag" property="delFlag" jdbcType="INTEGER" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
+    <result column="product_spec" property="productSpec" jdbcType="VARCHAR" />
+    <result column="sale_person_name" property="salePersonName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, output_warehouse_id, product_id, num, unit, price, cost_price, amount, pay_status, 
+    surcharge, total_amount, nopay_amount, profit, sale_person_id, customer_id, warehouse_id, 
+    remark, del_flag, create_by, create_time, update_by, update_time
+  </sql>
+
+  <select id="selectByCond" resultMap="BaseResultMap"
+          parameterType="java.util.Map" >
+      select
+        t.id, output_warehouse_id, product_id, num, t.unit, price, cost_price, amount, pay_status,
+        surcharge, total_amount, nopay_amount, profit, sale_person_id, customer_id, warehouse_id,
+        t.remark, t.del_flag, t.create_by, t.create_time, t.update_by, t.update_time,
+        p.product_code,p.product_name,p.product_spec,cu.name customer_name ,sa.user_name sale_person_name
+      from t_output_warehouse_detail t
+      left join t_product p on t.product_id=p.id
+      left join t_sale_person sa on sa.id = t.sale_person_id
+      left join t_customer cu on cu.id = t.customer_id
+    where 1=1
+    <if test="payStatus != null">
+      and t.pay_status  = #{payStatus}
+    </if>
+    <if test="customerId != null">
+      and t.customer_id = #{customerId}
+    </if>
+    <if test="salePersonId != null">
+    and t.sale_person_id =#{salePersonId}
+  </if>
+
+    <if test="productName != null">
+      and p.product_name like  concat(concat('%',#{productName}),'%')
+    </if>
+    <if test="productSpec != null">
+      and p.product_spec like concat(concat('%',#{productSpec}),'%')
+    </if>
+    <if test="productCode != null">
+      and p.product_code like concat(concat('%',#{productCode}),'%')
+    </if>
+    <if test="startDate != null" >
+      and  t.create_time BETWEEN #{startDate} and #{endDate}
+    </if>
+
+
+  </select>
+
+</mapper>

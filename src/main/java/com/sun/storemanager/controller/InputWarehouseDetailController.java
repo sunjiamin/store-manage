@@ -67,6 +67,16 @@ public class InputWarehouseDetailController extends BaseController<InputWarehous
                                                 @ModelAttribute PageVo pageVo){
 
         Page<InputWarehouseDetail> page = inputWarehouseDetailService.findByCondition(inputWarehouseDetail, searchVo, PageUtil.initPage(pageVo));
+        page.map(entity->{
+            Product product = entity.getProduct();
+            if(null != product){
+                entity.setProductName(product.getProductName());
+                entity.setProductCode(product.getProductCode());
+                entity.setProductSpec(product.getProductSpec());
+            }
+            return entity;
+        });
+
         return new ResultUtil<Page<InputWarehouseDetail>>().setData(page);
     }
 

@@ -139,7 +139,11 @@ public class CensusController {
                 outputTotal =  outputTotal.add(new BigDecimal(totalAmount));
             }
 
-            profitTotal = outputTotal.subtract(costTotal);
+            for (OutputWarehouseDetail output : outputList) {
+                String profit = output.getProfit();
+                profitTotal =  profitTotal.add(new BigDecimal(profit));
+            }
+
 
             List<String> titileList = new ArrayList<>();
             List<String> profitList = new ArrayList<>();
@@ -216,7 +220,7 @@ public class CensusController {
 
                 BigDecimal subCost = getSubCost(inputSubList);
                 BigDecimal subOutPutAmount = getSubOutPutAmount(outputWSubList);
-                BigDecimal subProfit = subOutPutAmount.subtract(subCost);
+                BigDecimal subProfit = getSubProfitAmount(outputWSubList);
                 BigDecimal subNoPay = getSubNoPay(outputWSubList);
 
                 costList.add(subCost.toString());
@@ -285,6 +289,20 @@ public class CensusController {
         }
 
         return outputTotal;
+    }
+
+    private BigDecimal getSubProfitAmount(List<OutputWarehouseDetail> outputWarehouseDetails){
+        BigDecimal profitTotal = new BigDecimal(0);
+
+        if(null == outputWarehouseDetails || outputWarehouseDetails.size()<=0){
+            return profitTotal;
+        }
+        for (OutputWarehouseDetail output : outputWarehouseDetails) {
+            String profit = output.getProfit();
+            profitTotal =  profitTotal.add(new BigDecimal(profit));
+        }
+
+        return profitTotal;
     }
 
     /**

@@ -65,7 +65,8 @@ public class InputWarehouseServiceImpl implements InputWarehouseService {
                ProductStock stock = ((ProductStockDao) productStockService.getRepository()).findByProductId(product.getId());
                if(null==stock){
                    ProductStock productStock = new ProductStock();
-                   productStock.setProduct(product);
+                  // productStock.setProduct(product);
+                   productStock.setProductId(product.getId());
                    productStock.setCreateTime(new Date());
                    productStock.setProductStock(inputWarehouseDetail.getNum());
                    productStockService.save(productStock);

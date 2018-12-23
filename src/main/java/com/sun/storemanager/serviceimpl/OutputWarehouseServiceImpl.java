@@ -66,6 +66,12 @@ public class OutputWarehouseServiceImpl implements OutputWarehouseService {
                 BigDecimal totalAmount = amount .add(new BigDecimal(surcharge));
                 outputWarehouseDetail.setAmount(amount.toString());
                 outputWarehouseDetail.setTotalAmount(totalAmount.toString());
+                //计算利润
+                String costPrice = outputWarehouseDetail.getCostPrice();
+                //价差
+                BigDecimal priceDiff = new BigDecimal(price).subtract(new BigDecimal(costPrice));
+                BigDecimal profit = priceDiff.multiply(new BigDecimal(num)).add(new BigDecimal(surcharge));
+                outputWarehouseDetail.setProfit(profit.toString());
                 OutputWarehouseDetail u = outputWarehouseDetailService.save(outputWarehouseDetail);
             }
             //3.更改配件库存

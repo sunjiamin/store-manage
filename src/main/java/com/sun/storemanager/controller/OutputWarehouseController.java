@@ -50,7 +50,7 @@ public class OutputWarehouseController extends BaseController<OutputWarehouse, I
             ArrayList<OutputWarehouseDetail> outputWarehouseDetails = GsonUtil.GsonToArrayList(outputWarehouse.getOutputWarehouseDetailList(), OutputWarehouseDetail.class);
             outputWarehouse.setOutputWarehouseDetailListObject(outputWarehouseDetails);
             String s = outputWarehouseService.insertOutputWareHouse(outputWarehouse);
-            if(s.equals("yes")){
+            if("yes".equals(s)){
                 return new ResultUtil<String>().setData("OK");
             }else {
                 return new ResultUtil<String>().setErrorMsg("新增失败，请稍后重试！！！");
