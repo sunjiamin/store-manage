@@ -49,8 +49,8 @@ public class ProductServiceImpl implements ProductService {
                 Path<String> productCode = root.get("productCode");
                 Path<String> productSpec = root.get("productSpec");
                 Path<Integer> productClass=root.get("productClass");
-                //Path<Integer> supplierId=root.get("supplierId");
-                Path<Integer> brandId=root.get("brandId");
+                Path<Integer> supplier=root.get("supplier");
+//                Path<Integer> brandId=root.get("brandId");
                 Path<Date> createTimeField=root.get("createTime");
 
                 List<Predicate> list = new ArrayList<Predicate>();
@@ -66,17 +66,15 @@ public class ProductServiceImpl implements ProductService {
                     list.add(cb.like(productSpec,'%'+product.getProductSpec()+'%'));
                 }
 
-//                if(StrUtil.isNotBlank(product.getProductClass())){
-//                    list.add(cb.equal(productClass, product.getProductClass()));
-//                }
-                //类型
-//                if(StrUtil.isNotBlank(product.getSupplierId())){
-//                    list.add(cb.equal(supplierId, product.getSupplierId()));
-//                }
-                //状态
-                if(StrUtil.isNotBlank(product.getBrandId())){
-                    list.add(cb.equal(brandId, product.getBrandId()));
+                if(null != product.getProductClass()){
+                    list.add(cb.equal(productClass, product.getProductClass()));
                 }
+                //类型
+                if(null != product.getSupplier()){
+                    list.add(cb.equal(supplier, product.getSupplier()));
+                }
+                //状态
+
                 //创建时间
                 if(StrUtil.isNotBlank(searchVo.getStartDate())&&StrUtil.isNotBlank(searchVo.getEndDate())){
                     Date start = DateUtil.parse(searchVo.getStartDate());

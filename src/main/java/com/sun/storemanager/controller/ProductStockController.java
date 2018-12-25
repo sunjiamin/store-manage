@@ -65,87 +65,12 @@ public class ProductStockController extends BaseController<ProductStock, String>
 
 
     @RequestMapping(value = "/getByCondition",method = RequestMethod.GET)
-    @ApiOperation(value = "多条件分页获取用户列表")
+    @ApiOperation(value = "多条件分页获取库存列表")
     public Result<Page<ProductStock>> getByCondition(@ModelAttribute ProductStock productStock,
                                                 @ModelAttribute SearchVo searchVo,
                                                 @ModelAttribute PageVo pageVo){
 
         List<Product> productList = null;
-//        if(!StringUtil.isBlank(productStock.getProductName()) &&
-//                !StringUtil.isBlank(productStock.getProductCode()) &&
-//                !StringUtil.isBlank(productStock.getProductSpec())){
-//            productList = productDao.findByProductNameContainingAndProductCodeContainingAndProductSpecContaining(
-//                    productStock.getProductName(),productStock.getProductCode(),productStock.getProductSpec());
-//
-//            if(null == productList || productList.size()<=0){
-//                return new ResultUtil<Page<ProductStock>>().setData(null);
-//            }
-//
-//        }else if(!StringUtil.isBlank(productStock.getProductName()) &&
-//                !StringUtil.isBlank(productStock.getProductCode()) ){
-//            productList = productDao.findByProductNameContainingAndProductCodeContaining(
-//                    productStock.getProductName(),productStock.getProductCode());
-//
-//            if(null == productList || productList.size()<=0){
-//                return new ResultUtil<Page<ProductStock>>().setData(null);
-//            }
-//
-//        }else if(!StringUtil.isBlank(productStock.getProductName()) &&
-//                !StringUtil.isBlank(productStock.getProductSpec()) ){
-//            productList = productDao.findByProductNameContainingAndProductSpecContaining(
-//                    productStock.getProductName(),productStock.getProductSpec());
-//
-//            if(null == productList || productList.size()<=0){
-//                return new ResultUtil<Page<ProductStock>>().setData(null);
-//            }
-//
-//        }else if(!StringUtil.isBlank(productStock.getProductCode()) &&
-//                !StringUtil.isBlank(productStock.getProductSpec()) ){
-//            productList = productDao.findByProductCodeContainingAndProductSpecContaining(
-//                    productStock.getProductCode(),productStock.getProductSpec());
-//
-//            if(null == productList || productList.size()<=0){
-//                return new ResultUtil<Page<ProductStock>>().setData(null);
-//            }
-//
-//        }else if(!StringUtil.isBlank(productStock.getProductName())){
-//            productList = productDao.findByProductNameContaining(
-//                    productStock.getProductName());
-//            if(null == productList || productList.size()<=0){
-//                return new ResultUtil<Page<ProductStock>>().setData(null);
-//            }
-//
-//        }else if(!StringUtil.isBlank(productStock.getProductCode())){
-//            productList = productDao.findByProductCodeContaining(
-//                    productStock.getProductCode());
-//            if(null == productList || productList.size()<=0){
-//                return new ResultUtil<Page<ProductStock>>().setData(null);
-//            }
-//
-//        }else if(!StringUtil.isBlank(productStock.getProductSpec())){
-//            productList = productDao.findByProductSpecContaining(
-//                    productStock.getProductSpec());
-//            if(null == productList || productList.size()<=0){
-//                return new ResultUtil<Page<ProductStock>>().setData(null);
-//            }
-//
-//        }
-//
-//
-//        ProductExample example = new ProductExample();
-//        ProductExample.Criteria criteria = example.createCriteria();
-//        if(!StringUtil.isBlank(productStock.getProductName())){
-//            criteria.andProductNameLike(productStock.getProductName());
-//        }
-//        if(!StringUtil.isBlank(productStock.getProductCode())){
-//            criteria.andProductCodeLike(productStock.getProductCode());
-//        }
-//        if(!StringUtil.isBlank(productStock.getProductSpec())){
-//            criteria.andProductSpecLike(productStock.getProductSpec());
-//        }
-
-        //productList= productMapper.selectByExample(example);
-
         Product  p = new Product();
         p.setProductName(productStock.getProductName());
         Map<String, Object> paramMap = new HashMap<>();
@@ -165,7 +90,6 @@ public class ProductStockController extends BaseController<ProductStock, String>
                 return new ResultUtil<Page<ProductStock>>().setData(null);
             }
         }
-
 
 
         Page<ProductStock> page = productStockService.findByCondition(productStock, productList,searchVo, PageUtil.initPage(pageVo));
